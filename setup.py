@@ -7,8 +7,7 @@ setup(
     packages=find_packages(),  # Automatically find all packages
     install_requires=[
         'requests',
-        'pandas',
-        'datetime'
+        'pandas'
     ],
     python_requires='>=3.6',  # Minimum version requirement of Python
 )
