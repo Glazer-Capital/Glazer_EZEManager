@@ -14,8 +14,7 @@ setup(
     install_requires=[
         'requests',
         'pandas',
-        'datetime',
-        'os'
+        'datetime'
     ],
     python_requires='>=3.6',  # Minimum version requirement of Python
 )
