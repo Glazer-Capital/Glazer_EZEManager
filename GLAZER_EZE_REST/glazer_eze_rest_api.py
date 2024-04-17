@@ -2,6 +2,7 @@ import requests
 from datetime import datetime, timezone
 import os
 import pandas as pd
+import time
 
 class EZEManager:
     """INITIAL SETUP"""
@@ -68,6 +69,7 @@ class EZEManager:
         if not columns is None:
             additional_url = "&columns=" + ",".join(columns)
             url = url + additional_url
+            
         print(url)
         # Define all the variables
         headers = {
@@ -79,10 +81,19 @@ class EZEManager:
         output_data = None
         
         # Check if we can get a response
-        try:
-            response = requests.get(url, headers=headers, verify=False)
-        except Exception as E:
-            error = E
+        data_received = 0
+        trials = 0
+        while data_received == 0 and trials < 3:
+            trials = trials + 1
+            try:
+                response = requests.get(url, headers=headers, verify=False)
+                if response.status_code == 429:
+                    print("Too many requests, will try again in 30 seconds. Sleeping for 30 seconds. This is trial number: ", trials)
+                    time.sleep(31)
+                elif response.status_code == 200:
+                    data_received = 1
+            except Exception as E:
+                error = E
 
         if response is None:
             return output_data, response, False
