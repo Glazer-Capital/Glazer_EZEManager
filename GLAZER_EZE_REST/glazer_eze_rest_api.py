@@ -83,7 +83,7 @@ class EZEManager:
         # Check if we can get a response
         data_received = 0
         trials = 0
-        trial_limit = 3
+        trial_limit = 10
         while data_received == 0 and trials <= trial_limit:
             trials = trials + 1
             try:
